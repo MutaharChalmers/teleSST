@@ -181,8 +181,7 @@ class TeleSST():
                 clim = []
                 for fmonth in tqdm(range(1, 13)):
                     data = self.load(inpath, (year_from, year_to), fmonth)
-                    clim.append(self.calc_clim(data, (year_from, year_to)
-                                               ).expand_dims({'fmonth': [fmonth]}))
+                    clim.append(self.calc_clim(data, (year_from, year_to)))
                 clim = xr.concat(clim, dim='fmonth').rename('sst')
                 out_fpath = os.path.join(self.climpath, f'sst_{year_from}_{year_to}.zarr')
                 if not os.path.exists(out_fpath):
