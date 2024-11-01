@@ -43,7 +43,10 @@ class TeleSST():
 
         self.now = datetime.datetime.now()
         self.EOFs, self.PCs = None, None
-        self.meta = {'year_range': None, 'lat_range': None, 'weighting': None}
+        self.meta = {'source': self.source,
+                     'year_range': None,
+                     'lat_range': None,
+                     'weighting': None}
 
     def download(self, outpath, year_range=(None,None), months=None,
                  overwrite=False, skip_error=False, cdsapi_key=None, proxy={}):
@@ -430,6 +433,7 @@ class TeleSST():
         with open(os.path.join(inpath, desc, 'meta.json'), 'r') as f:
             self.meta = json.load(f)
 
+        self.source = self.meta['source']
         self.EOFs = pd.read_parquet(os.path.join(inpath, desc, f'EOFs.parquet'))
         self.PCs = pd.read_parquet(os.path.join(inpath, desc, f'PCs.parquet'))
         anoms_mean = pd.read_parquet(os.path.join(inpath, desc, f'anoms_mean.parquet'))
