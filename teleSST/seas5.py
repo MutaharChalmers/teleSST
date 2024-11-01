@@ -132,6 +132,9 @@ class SEAS5():
                               month=('time', da.time.dt.month.data)
                               ).set_index(time=('year', 'month')).unstack('time')
 
+        # Make number 1-indexed
+        da['number'] = da['number'] + 1
+
         return da.to_dataset(dim='number')
 
     def load(self, inpath, month, year_range=(None, None)):
