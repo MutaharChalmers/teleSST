@@ -256,7 +256,7 @@ class TeleSST():
             anoms : DataArray
                 DataArray with dims ['latitude','longitude','year','month'].
             year_range : (int, int), optional
-                Year range subset to use. Defaults to all years.
+                Year range subset to use to calculate EOFs. Defaults to all years.
             lat_range : (float, float), optional
                 Latitude range subset to use. Defaults to (-90, 90).
             weighting : str, optional
@@ -268,9 +268,8 @@ class TeleSST():
         # Zero-mean by month over all time
         self.anoms_mean = anoms.mean(dim='year')
 
-        # Subset years and latitudes and subtract mean
-        da_raw = anoms.sel(year=slice(*year_range), latitude=slice(*lat_range))
-        da = da_raw - self.anoms_mean
+        # Subset latitudes and subtract mean
+        da = anoms.sel(latitude=slice(*lat_range)) - self.anoms_mean
 
         # Calculate weights
         if weighting == 'coslat':
@@ -287,7 +286,7 @@ class TeleSST():
         for m in tqdm(range(1, 13)):
             da_month = da.sel(month=m) * self.wts_da
             X = da_month.to_series().dropna().unstack('year').dropna(how='any').T
-            _, _, V = np.linalg.svd(X, full_matrices=False)
+            _, _, V = np.linalg.svd(X.loc[slice(*year_range)], full_matrices=False)
             EOFs[m] = pd.DataFrame(V, columns=X.columns)
             PCs[m] = X @ EOFs[m].T
 
