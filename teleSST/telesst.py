@@ -46,7 +46,8 @@ class TeleSST():
         self.meta = {'source': self.source,
                      'year_range': None,
                      'lat_range': None,
-                     'weighting': None}
+                     'weighting': None,
+                     'clims': None}
 
     def download(self, outpath, year_range=(None,None), months=None,
                  overwrite=False, skip_error=False, cdsapi_key=None, proxy={}):
@@ -234,6 +235,9 @@ class TeleSST():
                   ' in da not in clims index')
             return None
 
+        # Update climate periods in metadata
+        self.meta['clims'] = clims.reset_index().to_dict(orient='list')
+
         # Subset clims DataFrame to match years in da
         clims_ix = clims.reindex(da.get_index('year').intersection(clims.index))
 
@@ -303,9 +307,9 @@ class TeleSST():
                              ).reorder_levels(['year','month']
                                               ).sort_index().rename_axis('pc', axis=1)
         # Update metadata
-        self.meta = {'year_range': (int(da['year'].min()), int(da['year'].max())),
-                     'lat_range': (float(da['latitude'].min()), float(da['latitude'].max())),
-                     'weighting': weighting}
+        self.meta['year_range'] = (int(da['year'].min()), int(da['year'].max()))
+        self.meta['lat_range'] = (float(da['latitude'].min()), float(da['latitude'].max()))
+        self.meta['weighting'] = weighting
 
     def _ll_to_xyz(self, lons_deg, lats_deg):
         """Convert surface WGS84 geodetic coordinates to ECEF coordinates.
