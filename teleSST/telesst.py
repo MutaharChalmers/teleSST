@@ -236,7 +236,7 @@ class TeleSST():
             return None
 
         # Update climate periods in metadata
-        self.meta['clims'] = clims.reset_index().to_dict(orient='list')
+        self.meta['clims'] = clims.reset_index().to_dict(orient='records')
 
         # Subset clims DataFrame to match years in da
         clims_ix = clims.reindex(da.get_index('year').intersection(clims.index))
