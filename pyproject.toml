@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 exclude = [
 	"teleSST/clims/ERA5/*",
 	"teleSST/clims/SEAS5/*",
-	"teleSST/clims/ERSSTv55/*",
+	"teleSST/clims/ERSSTv5/*",
 ]
 
 [project]
