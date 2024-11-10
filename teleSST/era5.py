@@ -27,9 +27,6 @@ class ERA5():
         self.c = cdsapi.Client(key=cdsapi_key,
                                url='https://cds-beta.climate.copernicus.eu/api')
 
-        # Define grid - ERA5 SST data are on a 0.25 grid with centroid at (0, 0)
-
-
     def _get_era5_monthly_means(self, outpath, year, month=None):
         """Retrieve ERA5 reanalyis *monthly means* in grib format.
         """

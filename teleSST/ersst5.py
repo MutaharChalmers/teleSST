@@ -18,8 +18,6 @@ class ERSST5():
         self.this_year = dt.datetime.now().year
         self.this_month = dt.datetime.now().month
 
-        # Define grid - ERSSTv5 data are on a 2.0 grid with centroid at (0, 0)
-
     def download(self, outpath, year_range=(None,None), months=None,
                  overwrite=False, proxy={}):
         """Download ERSSTv5 data.
