@@ -2,6 +2,13 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build]
+exclude = [
+	"teleSST/clims/ERA5/*",
+	"teleSST/clims/SEAS5/*",
+	"teleSST/clims/ERSSTv55/*",
+]
+
 [project]
 name = "TeleSST"
 version = "0.0.1"
