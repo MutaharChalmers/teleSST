@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "TeleSST"
+name = "teleSST"
 version = "0.0.1"
 description = "Tools for processing Sea Surface Temperature data"
 authors = [
@@ -26,4 +26,4 @@ dependencies = [ "numpy>=1.20.3", "scipy>=1.10", "pandas>=2.0", "xarray>=2023.01
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/MutaharChalmers/TeleSST"
+"Homepage" = "https://github.com/MutaharChalmers/teleSST"
