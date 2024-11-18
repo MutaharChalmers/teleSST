@@ -22,7 +22,7 @@ classifiers = [
 requires-python = ">=3.8"
 dependencies = [ "numpy>=1.20.3", "scipy>=1.10", "pandas>=2.0", "xarray>=2023.01.0",
                  "pyarrow>=14.0", "zarr>=2.18", "cdsapi>=0.7.4", "tqdm>=4.66",
-                 "requests>=2.31",
+                 "netcdf4>=1.6.4", "requests>=2.31",
 ]
 
 [project.urls]
