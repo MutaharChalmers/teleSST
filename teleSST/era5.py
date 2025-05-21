@@ -10,7 +10,7 @@ from tqdm.auto import tqdm
 
 
 class ERA5():
-    def __init__(self, cdsapi_key):
+    def __init__(self, cdsapi_key, url='https://cds.climate.copernicus.eu/api'):
         """Convenience class for downloading and processing ECMWF
         ERA5 SST reanalysis data.
 
@@ -18,14 +18,15 @@ class ERA5():
         ----------
         cdsapi_key : str
             Copernicus CDSAPI key.
+        url : str, optional
+            URL of Copernicus Data Store.
         """
 
         self.this_year = dt.datetime.now().year
         self.this_month = dt.datetime.now().month
 
-        # Need a Copernicus Data Store Beta (CDS-Beta) API key
-        self.c = cdsapi.Client(key=cdsapi_key,
-                               url='https://cds-beta.climate.copernicus.eu/api')
+        # Need a Copernicus Data Store (CDS) API key (formerly beta during 2024)
+        self.c = cdsapi.Client(key=cdsapi_key, url=url)
 
     def _get_era5_monthly_means(self, outpath, year, month=None):
         """Retrieve ERA5 reanalyis *monthly means* in grib format.

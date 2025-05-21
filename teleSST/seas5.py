@@ -11,7 +11,7 @@ from tqdm.auto import tqdm
 
 
 class SEAS5():
-    def __init__(self, cdsapi_key):
+    def __init__(self, cdsapi_key, url='https://cds.climate.copernicus.eu/api'):
         """Convenience class for downloading and processing ECMWF SEAS5
         seasonal forecast SST data.
 
@@ -19,14 +19,15 @@ class SEAS5():
         ----------
         cdsapi_key : str
             Copernicus CDSAPI key.
+        url : str, optional
+            URL of Copernicus Data Store.
         """
 
         self.this_year = dt.datetime.now().year
         self.this_month = dt.datetime.now().month
 
-        # Need a Copernicus Data Store Beta (CDS-Beta) API key
-        self.c = cdsapi.Client(key=cdsapi_key,
-                               url='https://cds-beta.climate.copernicus.eu/api')
+        # Need a Copernicus Data Store (CDS) API key (formerly beta during 2024)
+        self.c = cdsapi.Client(key=cdsapi_key, url=url)
 
     def _get_seas51_month(self, year, month, outpath):
         """Function to retrieve seasonal surface forecasts at monthly
